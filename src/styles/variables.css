@@ -1,0 +1,89 @@
+/* ORCHID AFTER HOURS — DARK ROSE-GOLD */
+
+:root {
+  font-family: "Inter", sans-serif;
+  color-scheme: dark;
+
+  /* Brand palette */
+  --orchid: #C66AE8;
+  --orchid-light: #E7B8F5;
+  --pink: #F29BBE;
+  --lavender: #A99AFB;
+  --peach: #FFC7A8;
+  --mint: #A9DCCB;
+  --plum: #542653;
+
+  /* Permanent dark rose-gold theme */
+  --bg: #241719;
+  --bg-soft: #322126;
+  --surface: #3B292E;
+  --surface-hover: #4A3339;
+  --text: #FFF3EF;
+  --text-muted: #D7BEC0;
+  --border: #5B4147;
+
+  /* Orchid accents stay consistent */
+  --accent: #D79AE9;
+  --accent-strong: #D79AE9;
+  --accent-soft: #4D3050;
+
+  /* Effects */
+  --shadow: 0 18px 55px rgba(0, 0, 0, 0.30);
+
+  /* Layout */
+  --container: 1160px;
+  --nav-height: 82px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 30px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition: 220ms var(--ease);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 20px);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+::selection {
+  color: #241719;
+  background: var(--orchid-light);
+}

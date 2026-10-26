@@ -1,0 +1,1176 @@
+/* =========================================================
+   ORCHID AFTER HOURS — COMPLETE MOTION SYSTEM
+   Desktop interactions, mobile animations, scroll reveals,
+   loading sequence, and reduced-motion accessibility.
+   ========================================================= */
+
+
+/* =========================================================
+   01. MOTION TOKENS
+   ========================================================= */
+
+:root {
+  --motion-fast: 160ms;
+  --motion-base: 260ms;
+  --motion-smooth: 380ms;
+  --motion-reveal: 700ms;
+
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --motion-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.18);
+
+  --motion-glow:
+    0 0 28px rgba(215, 154, 233, 0.12);
+}
+
+
+/* =========================================================
+   02. PAGE FOUNDATION
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height, 76px) + 24px);
+}
+
+body {
+  background-image:
+    radial-gradient(
+      circle at 13% 8%,
+      rgba(215, 154, 233, 0.045),
+      transparent 31rem
+    ),
+    radial-gradient(
+      circle at 92% 44%,
+      rgba(231, 161, 143, 0.035),
+      transparent 28rem
+    );
+}
+
+/* Keep interactive feedback consistent. */
+
+a,
+button,
+input,
+textarea,
+select,
+video {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+
+/* =========================================================
+   03. NAVIGATION
+   ========================================================= */
+
+.site-header {
+  background: rgba(36, 23, 25, 0.92);
+
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  backdrop-filter: blur(14px) saturate(130%);
+
+  transition:
+    background-color var(--motion-smooth) ease,
+    border-color var(--motion-smooth) ease,
+    box-shadow var(--motion-smooth) ease;
+}
+
+.brand-mark {
+  transition:
+    opacity var(--motion-base) ease,
+    transform var(--motion-base) var(--motion-ease);
+}
+
+.brand-mark__symbol {
+  transition:
+    transform var(--motion-smooth) var(--motion-ease),
+    box-shadow var(--motion-smooth) ease,
+    border-radius var(--motion-smooth) ease;
+}
+
+.brand-mark__text strong {
+  transition: color var(--motion-base) ease;
+}
+
+.brand-mark__text small {
+  transition: color var(--motion-base) ease;
+}
+
+.nav-links > a:not(.nav-cta) {
+  position: relative;
+
+  transition:
+    color var(--motion-base) ease,
+    opacity var(--motion-base) ease;
+}
+
+.nav-links > a:not(.nav-cta)::after {
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+
+  height: 1px;
+
+  background: var(--accent-strong);
+  content: "";
+
+  transform: scaleX(0);
+  transform-origin: right;
+
+  transition:
+    transform var(--motion-smooth) var(--motion-ease);
+}
+
+.nav-links > a:not(.nav-cta):hover::after,
+.nav-links > a:not(.nav-cta):focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-cta {
+  transition:
+    transform var(--motion-base) var(--motion-ease),
+    background-color var(--motion-base) ease,
+    color var(--motion-base) ease,
+    box-shadow var(--motion-base) ease;
+}
+
+.menu-toggle {
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-base) ease,
+    border-color var(--motion-base) ease,
+    box-shadow var(--motion-base) ease;
+}
+
+.menu-toggle span {
+  display: inline-block;
+
+  transition:
+    transform var(--motion-base) var(--motion-ease);
+}
+
+/* Mobile navigation entrance. */
+
+@media (max-width: 920px) {
+  .nav-links.is-open {
+    animation:
+      mobile-menu-enter 320ms var(--motion-ease) both;
+
+    transform-origin: top center;
+  }
+}
+
+
+/* =========================================================
+   04. BUTTONS AND LINKS
+   ========================================================= */
+
+.button,
+.nav-cta,
+.project-source-link,
+.project-action,
+.certificate-text-link,
+.social-link,
+.footer-back-top {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button {
+  transition:
+    transform var(--motion-base) var(--motion-ease),
+    background-color var(--motion-base) ease,
+    border-color var(--motion-base) ease,
+    box-shadow var(--motion-smooth) ease,
+    color var(--motion-base) ease;
+}
+
+.button span {
+  display: inline-block;
+
+  transition:
+    transform var(--motion-base) var(--motion-ease);
+}
+
+.button-primary {
+  color: #291719;
+
+  box-shadow:
+    0 7px 22px rgba(215, 154, 233, 0.10);
+}
+
+.button-secondary {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+/* Main desktop hover interactions. */
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-mark:hover {
+    opacity: 0.94;
+  }
+
+  .brand-mark:hover .brand-mark__symbol {
+    transform: translateY(-2px) rotate(-4deg);
+
+    box-shadow:
+      0 8px 24px rgba(198, 106, 232, 0.22);
+  }
+
+  .button:hover {
+    transform: translateY(-3px);
+  }
+
+  .button-primary:hover {
+    box-shadow:
+      0 12px 30px rgba(215, 154, 233, 0.20);
+  }
+
+  .button-secondary:hover {
+    box-shadow:
+      0 9px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .button:hover span {
+    transform: translate(2px, -2px);
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+      0 8px 22px rgba(215, 154, 233, 0.16);
+  }
+
+  .menu-toggle:hover {
+    border-color: var(--accent);
+    box-shadow: var(--motion-glow);
+  }
+}
+
+/* Keyboard focus. */
+
+.button:focus-visible,
+.nav-cta:focus-visible,
+.project-source-link:focus-visible,
+.certificate-text-link:focus-visible,
+.social-link:focus-visible,
+.footer-back-top:focus-visible {
+  outline: 2px solid var(--orchid-light);
+  outline-offset: 4px;
+}
+
+/* Press feedback. */
+
+.button:active,
+.nav-cta:active,
+.menu-toggle:active,
+.project-source-link:active,
+.certificate-text-link:active,
+.footer-back-top:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================================================
+   05. HERO PORTRAIT
+   ========================================================= */
+
+.hero-visual {
+  perspective: 1100px;
+
+  --hero-tilt-x: 0deg;
+  --hero-tilt-y: 0deg;
+  --hero-shift-x: 0px;
+  --hero-shift-y: 0px;
+}
+
+.hero-photo-frame {
+  position: relative;
+
+  transform:
+    perspective(1100px)
+    rotateX(var(--hero-tilt-x, 0deg))
+    rotateY(var(--hero-tilt-y, 0deg));
+
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  transition:
+    transform 500ms var(--motion-ease),
+    box-shadow 500ms ease,
+    border-color 400ms ease;
+}
+
+.hero-photo-frame img {
+  transition:
+    transform 700ms var(--motion-ease),
+    filter 500ms ease;
+}
+
+.hero-orbit {
+  pointer-events: none;
+  will-change: translate;
+}
+
+.hero-orbit-one {
+  transform: translate3d(
+    var(--hero-shift-x, 0px),
+    var(--hero-shift-y, 0px),
+    0
+  );
+
+  transition:
+    transform 400ms var(--motion-ease);
+
+  animation:
+    orbit-breathe 7s ease-in-out infinite alternate;
+}
+
+.hero-orbit-two {
+  animation:
+    orbit-breathe 9s ease-in-out 400ms infinite alternate-reverse;
+}
+
+/* Keep the animation restrained. */
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-visual:hover .hero-photo-frame {
+    box-shadow:
+      0 28px 75px rgba(0, 0, 0, 0.25);
+  }
+
+  .hero-visual:hover .hero-photo-frame img {
+    filter: saturate(1.045);
+  }
+}
+
+
+/* =========================================================
+   06. PROJECT SPOTLIGHT
+   ========================================================= */
+
+.project-spotlight {
+  perspective: 1200px;
+}
+
+.project-spotlight__media {
+  transition:
+    border-color var(--motion-smooth) ease,
+    box-shadow var(--motion-smooth) ease,
+    transform var(--motion-smooth) var(--motion-ease);
+}
+
+.project-spotlight__video {
+  transition:
+    border-color var(--motion-base) ease,
+    filter var(--motion-smooth) ease;
+}
+
+.project-spotlight__content h3 {
+  transition: color var(--motion-base) ease;
+}
+
+.project-spotlight__caption {
+  transition: color var(--motion-base) ease;
+}
+
+.project-tech-item,
+.project-tech-icon {
+  transition:
+    transform var(--motion-base) var(--motion-ease),
+    border-color var(--motion-base) ease,
+    background-color var(--motion-base) ease,
+    color var(--motion-base) ease;
+}
+
+.project-source-link {
+  transition:
+    color var(--motion-base) ease,
+    border-color var(--motion-base) ease,
+    transform var(--motion-base) var(--motion-ease);
+}
+
+.project-source-link span {
+  display: inline-block;
+
+  transition:
+    transform var(--motion-base) var(--motion-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-spotlight__media:hover {
+    border-color: rgba(215, 154, 233, 0.45);
+
+    box-shadow:
+      0 22px 60px rgba(0, 0, 0, 0.22);
+  }
+
+  .project-spotlight__content h3:hover {
+    color: var(--accent-strong);
+  }
+
+  .project-tech-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(215, 154, 233, 0.55);
+    background: var(--surface-hover);
+  }
+
+  .project-tech-item:hover .project-tech-icon {
+    transform: scale(1.12) rotate(-4deg);
+  }
+
+  .project-source-link:hover {
+    transform: translateY(-2px);
+    color: var(--orchid-light);
+    border-color: var(--orchid-light);
+  }
+
+  .project-source-link:hover span {
+    transform: translate(3px, -3px);
+  }
+}
+
+
+/* =========================================================
+   07. SKILLS
+   ========================================================= */
+
+.skill-group {
+  transition:
+    border-color var(--motion-smooth) ease,
+    transform var(--motion-smooth) var(--motion-ease),
+    box-shadow var(--motion-smooth) ease;
+}
+
+.skill-chip {
+  transition:
+    transform var(--motion-base) var(--motion-ease),
+    border-color var(--motion-base) ease,
+    background-color var(--motion-base) ease,
+    box-shadow var(--motion-base) ease;
+}
+
+.skill-chip__icon {
+  transition:
+    transform var(--motion-base) var(--motion-ease),
+    filter var(--motion-base) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skill-group:hover {
+    transform: translateY(-3px);
+    border-top-color: var(--accent-strong);
+  }
+
+  .skill-chip:hover {
+    transform: translateY(-3px);
+    border-color: rgba(215, 154, 233, 0.55);
+    background: var(--surface-hover);
+
+    box-shadow:
+      0 7px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  .skill-chip:hover .skill-chip__icon {
+    transform: scale(1.1) rotate(-4deg);
+    filter: brightness(1.12);
+  }
+}
+
+
+/* =========================================================
+   08. EDUCATION, INTERNSHIP AND CERTIFICATES
+   ========================================================= */
+
+.education-degree-strip,
+.certificate-featured,
+.certificate-card,
+.campus-role {
+  transition:
+    border-color var(--motion-smooth) ease,
+    box-shadow var(--motion-smooth) ease,
+    transform var(--motion-smooth) var(--motion-ease),
+    background-color var(--motion-smooth) ease;
+}
+
+/* The featured internship receives a little more emphasis. */
+
+.certificate-featured {
+  position: relative;
+  overflow: hidden;
+}
+
+.certificate-featured__media {
+  transition:
+    border-color var(--motion-smooth) ease,
+    transform var(--motion-smooth) var(--motion-ease);
+}
+
+.certificate-featured__body h3 {
+  transition: color var(--motion-base) ease;
+}
+
+/* Document thumbnails. */
+
+.certificate-preview {
+  overflow: hidden;
+}
+
+.certificate-preview img {
+  transition:
+    transform 550ms var(--motion-ease),
+    filter 450ms ease;
+}
+
+/* Certificate buttons. */
+
+.certificate-text-link {
+  transition:
+    background-color var(--motion-base) ease,
+    color var(--motion-base) ease,
+    border-color var(--motion-base) ease,
+    transform var(--motion-base) var(--motion-ease),
+    box-shadow var(--motion-smooth) ease;
+}
+
+.certificate-text-link span {
+  transition:
+    transform var(--motion-base) var(--motion-ease);
+}
+
+/* Role icon and card. */
+
+.campus-role__mark {
+  transition:
+    transform var(--motion-smooth) var(--motion-ease),
+    background-color var(--motion-base) ease,
+    border-color var(--motion-base) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .education-degree-strip:hover {
+    border-color: rgba(215, 154, 233, 0.4);
+    box-shadow: var(--motion-shadow);
+  }
+
+  .certificate-featured:hover {
+    border-color: rgba(215, 154, 233, 0.65);
+
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.18);
+  }
+
+  .certificate-featured:hover .certificate-featured__media {
+    border-color: rgba(215, 154, 233, 0.35);
+  }
+
+  .certificate-featured:hover .certificate-featured__body h3 {
+    color: var(--orchid-light);
+  }
+
+  .certificate-card:hover {
+    border-color: rgba(215, 154, 233, 0.65);
+
+    box-shadow:
+      0 15px 35px rgba(0, 0, 0, 0.16);
+  }
+
+  .certificate-preview:hover img {
+    transform: scale(1.035);
+    filter: saturate(1.035);
+  }
+
+  .campus-role:hover {
+    border-color: rgba(215, 154, 233, 0.42);
+    box-shadow: var(--motion-shadow);
+  }
+
+  .campus-role:hover .campus-role__mark {
+    transform: translateY(-2px) rotate(-3deg);
+    border-color: rgba(215, 154, 233, 0.5);
+    background: var(--surface-hover);
+  }
+
+  .certificate-text-link:hover {
+    transform: translateY(-2px);
+    background: #F2B9A9;
+    color: #241719;
+
+    box-shadow:
+      0 7px 20px rgba(231, 161, 143, 0.14);
+  }
+
+  .certificate-text-link:hover span {
+    transform: translate(2px, -2px);
+  }
+}
+
+
+/* =========================================================
+   09. CONTACT SECTION AND SOCIAL LINKS
+   ========================================================= */
+
+.contact-panel {
+  transition:
+    border-color var(--motion-smooth) ease,
+    box-shadow var(--motion-smooth) ease;
+}
+
+.contact-panel__copy h2 {
+  transition: color var(--motion-smooth) ease;
+}
+
+.contact-email-text {
+  transition: color var(--motion-base) ease;
+}
+
+.contact-panel__links {
+  min-width: 0;
+}
+
+.social-link {
+  transition:
+    border-color var(--motion-base) ease,
+    background-color var(--motion-base) ease,
+    transform var(--motion-base) var(--motion-ease);
+}
+
+.social-link__icon {
+  transition:
+    transform var(--motion-base) var(--motion-ease),
+    border-color var(--motion-base) ease,
+    background-color var(--motion-base) ease,
+    box-shadow var(--motion-base) ease;
+}
+
+.social-link__text strong {
+  transition: color var(--motion-base) ease;
+}
+
+.social-link__text small {
+  transition: color var(--motion-base) ease;
+}
+
+.social-link__arrow {
+  display: inline-block;
+
+  transition:
+    transform var(--motion-base) var(--motion-ease),
+    color var(--motion-base) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-panel:hover {
+    border-color: rgba(215, 154, 233, 0.28);
+  }
+
+  .social-link:hover {
+    transform: translateX(4px);
+  }
+
+  .social-link:hover .social-link__icon {
+    transform: translateY(-2px) rotate(-3deg);
+
+    border-color: rgba(215, 154, 233, 0.55);
+    background: var(--surface-hover);
+
+    box-shadow:
+      0 5px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .social-link:hover .social-link__text strong {
+    color: var(--accent-strong);
+  }
+
+  .social-link:hover .social-link__arrow {
+    transform: translate(2px, -2px);
+    color: var(--accent-strong);
+  }
+}
+
+
+/* =========================================================
+   10. FOOTER
+   ========================================================= */
+
+.footer-brand,
+.footer-navigation a,
+.footer-socials a,
+.footer-back-top {
+  transition:
+    color var(--motion-base) ease,
+    transform var(--motion-base) var(--motion-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer-brand:hover {
+    color: var(--accent-strong);
+  }
+
+  .footer-navigation a:hover,
+  .footer-socials a:hover,
+  .footer-back-top:hover {
+    color: var(--accent-strong);
+  }
+
+  .footer-back-top:hover {
+    transform: translateY(-2px);
+  }
+}
+
+
+/* =========================================================
+   11. SCROLL REVEALS
+   Depends on JS toggling:
+   html.motion-ready and element .is-visible
+   ========================================================= */
+
+html.motion-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+
+  transition:
+    opacity var(--motion-reveal) var(--motion-ease),
+    transform var(--motion-reveal) var(--motion-ease);
+
+  transition-delay: var(--reveal-delay, 0ms);
+
+  will-change: opacity, transform;
+}
+
+html.motion-ready [data-reveal="left"] {
+  transform: translate3d(-24px, 10px, 0);
+}
+
+html.motion-ready [data-reveal="right"] {
+  transform: translate3d(24px, 10px, 0);
+}
+
+html.motion-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+
+  will-change: auto;
+}
+
+/* Gentle stagger for groups of cards. */
+
+.skills-grid > [data-reveal]:nth-child(2),
+.certificate-grid > [data-reveal]:nth-child(2) {
+  --reveal-delay: 90ms;
+}
+
+.skills-grid > [data-reveal]:nth-child(3),
+.certificate-grid > [data-reveal]:nth-child(3) {
+  --reveal-delay: 180ms;
+}
+
+/* Keep a reduced movement distance on tablets. */
+
+@media (max-width: 680px) {
+  html.motion-ready [data-reveal],
+  html.motion-ready [data-reveal="left"],
+  html.motion-ready [data-reveal="right"] {
+    transform: translate3d(0, 16px, 0);
+  }
+
+  html.motion-ready [data-reveal].is-visible {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+/* =========================================================
+   12. SS MONOGRAM LOADER
+   ========================================================= */
+
+.intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+
+  display: grid;
+  place-items: center;
+
+  padding: 24px;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(215, 154, 233, 0.08),
+      transparent 25rem
+    ),
+    var(--bg);
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 600ms ease,
+    visibility 0s linear 600ms;
+}
+
+.intro-loader__content {
+  width: min(380px, 100%);
+  text-align: center;
+
+  animation:
+    loader-content-appear 850ms var(--motion-ease) both;
+}
+
+.intro-loader__logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.intro-loader__symbol {
+  display: block;
+  width: 88px;
+  height: 88px;
+
+  overflow: visible;
+  color: #E7A1C5;
+
+  animation: logo-appear 900ms ease both;
+}
+
+.intro-loader__ring {
+  stroke-dasharray: 226.2;
+  stroke-dashoffset: 226.2;
+  transform-origin: center;
+
+  animation: ring-appear 1.2s ease-out 150ms forwards;
+}
+
+.intro-loader__spark {
+  opacity: 0;
+  transform-origin: 77px 25px;
+
+  animation:
+    sparkle-appear 700ms ease-out 650ms forwards;
+}
+
+.intro-loader__name {
+  margin: 0;
+
+  color: #F4E8EF;
+
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1.4rem, 5vw, 2.1rem);
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.intro-loader__track {
+  width: 100%;
+  height: 3px;
+
+  margin-top: 32px;
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: rgba(215, 154, 233, 0.13);
+}
+
+.intro-loader__fill {
+  display: block;
+  width: 0%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    90deg,
+    #C66AE8,
+    #E7A1C5 65%,
+    #E7A18F
+  );
+
+  box-shadow:
+    0 0 14px rgba(215, 154, 233, 0.4);
+
+  transition: width 45ms linear;
+}
+
+.intro-loader__percentage {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 12px;
+
+  color: #E7A1C5;
+
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+
+.intro-loader--exit {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .intro-loader__content {
+    width: min(310px, 100%);
+  }
+
+  .intro-loader__symbol {
+    width: 76px;
+    height: 76px;
+  }
+
+  .intro-loader__logo {
+    margin-bottom: 24px;
+  }
+
+  .intro-loader__name {
+    letter-spacing: 0.1em;
+  }
+
+  .intro-loader__track {
+    margin-top: 27px;
+  }
+}
+
+
+/* =========================================================
+   13. KEYFRAMES
+   ========================================================= */
+
+@keyframes loader-content-appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes logo-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ring-appear {
+  from {
+    stroke-dashoffset: 226.2;
+    transform: rotate(-35deg);
+  }
+
+  to {
+    stroke-dashoffset: 0;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes sparkle-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.4) rotate(-30deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes orbit-breathe {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0 -8px;
+  }
+}
+
+@keyframes mobile-menu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scaleY(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+
+/* =========================================================
+   14. MOBILE AND TOUCH INTERACTIONS
+   ========================================================= */
+
+@media (hover: none), (pointer: coarse) {
+  /* Do not use pointer-driven 3D tilt on touchscreens. */
+
+  .hero-photo-frame {
+    transform: none;
+    will-change: auto;
+  }
+
+  /* Keep the orbit animations alive on mobile. */
+
+  .hero-orbit-one {
+    transform: none;
+
+    animation:
+      mobile-orbit-drift 8s ease-in-out infinite alternate;
+  }
+
+  .hero-orbit-two {
+    transform: none;
+
+    animation:
+      mobile-orbit-drift 10s ease-in-out 300ms infinite
+      alternate-reverse;
+  }
+
+  /* Touch feedback for cards and controls. */
+
+  .button:active,
+  .nav-cta:active,
+  .project-source-link:active,
+  .certificate-text-link:active,
+  .social-link:active,
+  .footer-back-top:active {
+    transition-duration: 100ms;
+    transform: scale(0.98);
+  }
+
+  .certificate-card:active {
+    border-color: rgba(215, 154, 233, 0.6);
+  }
+
+  .skill-chip:active,
+  .project-tech-item:active {
+    border-color: var(--accent-strong);
+    background: var(--surface-hover);
+  }
+
+  /* Avoid hover-dependent motion on mobile.
+     The touch feedback above replaces it. */
+
+  .certificate-preview img,
+  .hero-photo-frame img {
+    transform: none;
+  }
+}
+
+@keyframes mobile-orbit-drift {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0 -6px;
+  }
+}
+
+
+/* =========================================================
+   15. RESPONSIVE PERFORMANCE
+   ========================================================= */
+
+/* Small screens: avoid expensive shadows while scrolling. */
+
+@media (max-width: 480px) {
+  .hero-photo-frame {
+    transition:
+      transform 350ms ease,
+      box-shadow 350ms ease;
+  }
+
+  .certificate-card,
+  .certificate-featured,
+  .campus-role,
+  .skill-group {
+    transition:
+      border-color var(--motion-base) ease,
+      box-shadow var(--motion-base) ease,
+      transform var(--motion-base) var(--motion-ease);
+  }
+
+  .intro-loader__content {
+    animation-duration: 650ms;
+  }
+}
+
+
+/* =========================================================
+   16. REDUCED-MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  html.motion-ready [data-reveal],
+  html.motion-ready [data-reveal="left"],
+  html.motion-ready [data-reveal="right"] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+
+  .intro-loader__content,
+  .intro-loader__symbol,
+  .intro-loader__ring,
+  .intro-loader__spark {
+    animation: none !important;
+  }
+
+  .intro-loader__ring {
+    stroke-dashoffset: 0;
+  }
+
+  .intro-loader__spark {
+    opacity: 1;
+  }
+
+  .intro-loader__fill {
+    transition: none !important;
+  }
+
+  .hero-photo-frame {
+    transform: none !important;
+  }
+}

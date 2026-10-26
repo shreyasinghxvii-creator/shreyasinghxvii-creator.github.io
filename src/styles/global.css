@@ -1,0 +1,211 @@
+/* ORCHID AFTER HOURS — GLOBAL STYLES
+   Fonts are loaded once from index.html. */
+
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+h1 {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+}
+
+h2 {
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+}
+
+h3 {
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+}
+
+p {
+  color: var(--text-muted);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Keyboard accessibility */
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Reusable layout */
+
+.container {
+  width: min(calc(100% - 48px), var(--container));
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(76px, 10vw, 140px);
+}
+
+.section-heading {
+  max-width: 760px;
+  margin-bottom: 48px;
+}
+
+.section-heading h2 {
+  margin-bottom: 18px;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: var(--accent-strong);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.section-eyebrow::before {
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+.gradient-text {
+  color: var(--accent-strong);
+}
+
+.mono-label {
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+/* Reusable buttons */
+
+.button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform var(--transition),
+    background-color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.button-primary {
+  background: var(--accent-strong);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(157, 60, 193, 0.18);
+}
+
+.button-secondary {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+@media (hover: hover) {
+  .button:hover {
+    transform: translateY(-3px);
+  }
+
+  .button-primary:hover {
+    box-shadow: 0 12px 30px rgba(157, 60, 193, 0.25);
+  }
+
+  .button-secondary:hover {
+    border-color: var(--accent);
+    background: var(--surface-hover);
+  }
+}
+
+/* Decorative background glow */
+
+.orchid-glow {
+  position: absolute;
+  z-index: -1;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: var(--orchid-light);
+  opacity: 0.18;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+/* Motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark-theme button contrast */
+
+[data-theme="dark"] .button-primary {
+  background: var(--accent-strong);
+  color: #291719;
+  box-shadow: 0 8px 24px rgba(231, 161, 143, 0.16);
+}
+
+[data-theme="dark"] .button-primary:hover {
+  background: #F2B9A9;
+  color: #291719;
+}
